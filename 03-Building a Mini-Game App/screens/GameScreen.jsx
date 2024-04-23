@@ -60,10 +60,14 @@ export function GameScreen({ userNumber, onGameOver }) {
                 <InstructionText style={styles.instructionText}>Higher or lower?</InstructionText>
                 <View style={styles.buttonsContainer}>
                     <View style={styles.buttonContainer}>
-                        <PrimaryButton onPress={nextGuessHandler.bind(this, 'lower')}>-</PrimaryButton>
+                        <PrimaryButton onPress={nextGuessHandler.bind(this, 'lower')}>
+                            <Ionicons name="remove-outline" size={24} color={'white'}/>
+                        </PrimaryButton>
                     </View>
                     <View style={styles.buttonContainer}>
-                        <PrimaryButton onPress={nextGuessHandler.bind(this, 'greater')}>+</PrimaryButton>
+                        <PrimaryButton onPress={nextGuessHandler.bind(this, 'greater')}>
+                            <Ionicons name="add-outline" size={24} color={'white'}/>
+                        </PrimaryButton>
                     </View>
                 </View>
             </Card>
