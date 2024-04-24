@@ -1,7 +1,12 @@
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 
 export function GameOverScreen() {
     return (
-        <Text>Gamer over</Text>
+        <View>
+            <Text>Gamer over</Text>
+            <View>
+                You lost this game
+            </View>
+        </View>
     )
 }
