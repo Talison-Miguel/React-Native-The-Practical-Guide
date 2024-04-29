@@ -1,4 +1,4 @@
-import { Alert, StyleSheet, Text, View } from "react-native";
+import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
 import { useEffect, useState } from "react";
 
 import { Ionicons } from '@expo/vector-icons'
@@ -25,12 +25,18 @@ let maxBoundary = 100;
 export function GameScreen({ userNumber, onGameOver }) {
     const initialGuess = generateRandomBetween(1, 100, userNumber)
     const [ currentGuess, setCurrentGuess ] = useState(initialGuess)
+    const [ guessRounds, setGuessRounds ] = useState([])
 
     useEffect(() => {
         if(currentGuess === userNumber) {
             onGameOver()
         }   
     }, [currentGuess, userNumber, onGameOver])
+
+    useEffect(() => {
+        minBoundary = 1;
+        maxBoundary = 100;
+    }, [])
 
     function nextGuessHandler(direction) {
         if (
@@ -50,6 +56,7 @@ export function GameScreen({ userNumber, onGameOver }) {
         }
         const newRandomNumber = generateRandomBetween(minBoundary, maxBoundary, currentGuess)
         setCurrentGuess(newRandomNumber)
+        setGuessRounds(prevGuessRounds => [newRandomNumber, ...prevGuessRounds ])
     }
 
     return (
@@ -72,7 +79,12 @@ export function GameScreen({ userNumber, onGameOver }) {
                 </View>
             </Card>
             <View>
-                {/* <Text>LOG ROUNDS</Text> */}
+                {/* {guessRounds.map(guessRound => <Text key={guessRound}>{guessRound}</Text>)} */}
+                <FlatList 
+                    data={guessRounds} 
+                    renderItem={({ itemData }) => <Text>{itemData}</Text>}
+                    keyExtractor={(item, index) => index.toString()}
+                />
             </View>
         </View>
     )
